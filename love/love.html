@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Love Page</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Arial;
+    background: linear-gradient(135deg, #ffd6e7, #ffeef5);
+}
+
+/* Сердечки */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    color: #ff4d88;
+    font-size: 20px;
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+
+/* Карточка */
+.card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.hidden {
+    display: none;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.yes {
+    background: #ff4d88;
+    color: white;
+}
+
+.no {
+    background: white;
+    border: 1px solid #ccc;
+    position: relative;
+}
+
+img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+/* Цветочек */
+.flower {
+    font-size: 40px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 1 экран -->
+<div class="card" id="screen1">
+    <h2>Соскучилась по мне? 😘💕</h2>
+    <button class="btn yes" onclick="show(3)">Да, очень 💕</button>
+    <button class="btn no" id="noBtn">Нет 😏</button>
+</div>
+
+<!-- 2 экран -->
+<div class="card hidden" id="screen2">
+    <img src="C:\Users\ELUK\Desktop\love\img\photo1.jpg">
+    <h2>💔 НЕ ВЕРЮ! 💔</h2>
+    <p>Признавайся... 😏</p>
+    <button class="btn yes" onclick="show(3)">Ладно, скучаю 😘</button>
+</div>
+
+<!-- 3 экран -->
+<div class="card hidden" id="screen3">
+    <h3>Я так и знал 😏<br>Держи, моя хорошая~</h3>
+    <div style="font-size:50px;">🐹</div>
+    <div class="flower" onclick="show(4)">🌸</div>
+    <p>нажми на цветочек 🌸</p>
+</div>
+
+<!-- 4 экран -->
+<div class="card hidden" id="screen4">
+    <img src="C:\Users\ELUK\Desktop\love\img\photo1.jpg">
+    <h2>❤️ Люблю ❤️</h2>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+
+// убегающая кнопка
+noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * 200 - 100;
+    const y = Math.random() * 200 - 100;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+// если нажали
+noBtn.addEventListener("click", () => show(2));
+
+// переключение экранов
+function show(n) {
+    document.querySelectorAll(".card").forEach(c => c.classList.add("hidden"));
+    document.getElementById("screen" + n).classList.remove("hidden");
+}
+
+// сердечки
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤";
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 6000);
+}
+
+setInterval(createHeart, 200);
+</script>
+
+</body>
+</html>
